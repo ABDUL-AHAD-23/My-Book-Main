@@ -16,7 +16,7 @@ const config = {
   future: {
     v4: true, // Improve compatibility with the upcoming Docusaurus v4
   },
-  url: 'https://github.com/ABDUL-AHAD-23', // Replace with your GitHub Pages URL
+  url: 'https://ABDUL-AHAD-23.github.io', // Replace with your GitHub Pages URL
   baseUrl: '/', // GitHub Pages subdirectory for this project
   organizationName: 'ABDUL-AHAD-23', // Usually your GitHub org/user name.
   projectName: 'physical-ai-robotics-textbook',
@@ -83,7 +83,7 @@ const config = {
           },
           // {to: '/blog', label: 'Blog', position: 'left'},
           {
-            href: 'https://github.com/your-username/MY-HACKATHON',
+            href: 'https://github.com/ABDUL-AHAD-23/My-Book-Main.git',
             label: 'GitHub',
             position: 'right',
           },
@@ -131,7 +131,7 @@ const config = {
               },
               {
                 label: 'GitHub',
-                href: 'https://github.com/your-username/MY-HACKATHON',
+                href: 'https://github.com/ABDUL-AHAD-23/My-Book-Main.git',
               },
             ],
           },

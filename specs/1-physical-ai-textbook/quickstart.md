@@ -70,6 +70,22 @@
 
 4. **The backend will be available at:** `http://localhost:8000`
 
+> Note: If you're running the frontend on `http://localhost:3000`, you must allow CORS from the frontend origin. Add this snippet to your FastAPI app (for example in `src/main.py`):
+
+```py
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+```
+
+Also, configure the frontend backend URL using the `BACKEND_API_URL` environment variable in the frontend `.env` file (defaults to `http://localhost:8000`). The Docusaurus frontend injects this value at runtime into `window.__BACKEND_API_URL__`. If you change the port or host for the backend, update `BACKEND_API_URL` accordingly.
+
 ### Frontend (Docusaurus)
 
 1. **Navigate to the frontend directory:**

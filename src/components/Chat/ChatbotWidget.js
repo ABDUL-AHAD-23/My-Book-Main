@@ -26,28 +26,34 @@ const ChatbotWidget = ({ initialOpen = false }) => {
     setIsLoading(true);
 
     try {
-      // 2. Python Agent (FastAPI) ko call karein
-      const response = await fetch('http://localhost:8000/chat', {
+      // 2. Resolve backend URL and call RAG chatbot endpoint (POST /api/v1/chat)
+      const BACKEND_API_URL = (typeof window !== 'undefined' && window.__BACKEND_API_URL__) || process.env.BACKEND_API_URL || 'http://localhost:8000';
+      const CHAT_ENDPOINT = `${BACKEND_API_URL.replace(/\/$/, '')}/api/v1/chat`;
+      console.debug('[Chatbot] POST', CHAT_ENDPOINT, 'payload:', { question: currentInput });
+
+      const response = await fetch(CHAT_ENDPOINT, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ text: currentInput }),
+        body: JSON.stringify({ question: currentInput }),
       });
 
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        // Include status/text to make debugging easier
+        const text = await response.text().catch(() => '');
+        throw new Error(`Network response was not ok (${response.status}): ${text}`);
       }
 
       const data = await response.json();
 
-      // 3. Agent ka real response UI mein add karein
+      // 3. Agent real response -> add to UI
       const botMessage = {
         id: Date.now() + 1,
-        text: data.reply, 
+        text: data.response || data.reply || "(no response)",
         sender: 'bot',
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        sources: ['Physical AI Textbook']
+        sources: data.sources || ['Physical AI Textbook']
       };
 
       setMessages(prev => [...prev, botMessage]);
