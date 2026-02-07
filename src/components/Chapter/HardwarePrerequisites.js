@@ -5,7 +5,7 @@
  * helping users understand what hardware is needed before proceeding.
  */
 
-import React from 'react';
+import React from 'rea  ct';
 import clsx from 'clsx';
 import styles from './HardwarePrerequisites.module.css';
 
